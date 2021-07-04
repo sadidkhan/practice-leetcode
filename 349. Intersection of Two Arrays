@@ -1,0 +1,46 @@
+// with array
+public class Solution {
+    public int[] Intersection(int[] nums1, int[] nums2) {
+        int[] occuranceArray = new int[1000];
+        List<int> result = new List<int>();
+        
+        for(int i=0; i< nums1.Length; i++){
+            occuranceArray[nums1[i]] = 1;
+        }
+        
+        for(int i=0; i< nums2.Length; i++){
+            if(occuranceArray[nums2[i]] == 1){
+                result.Add(nums2[i]);
+                occuranceArray[nums2[i]]++;
+            }
+        }
+        return result.ToArray();
+    }
+}
+
+//with dictionary
+public class Solution {
+    public int[] Intersection(int[] nums1, int[] nums2) {
+        Dictionary<int,int> dict = new Dictionary<int,int>();
+        foreach(int i in nums1){
+            if(!dict.ContainsKey(i)){
+                dict.Add(i, 1);
+            }
+        }
+        
+        foreach(int i in nums2){
+            if(dict.ContainsKey(i)){
+                dict[i] += 1;
+            }
+        }
+        
+        var result = new List<int>();
+        foreach(var item in dict){
+            if(item.Value > 1){
+                result.Add(item.Key);
+            }
+        }
+        
+        return result.ToArray();
+    }
+}
