@@ -1,0 +1,22 @@
+public class Solution {
+    public int NumIdenticalPairs(int[] nums) {
+        int pairCount = 0;
+        Dictionary<int, int> occurances = new Dictionary<int, int>();
+        
+        for(int i= 0; i< nums.Length; i++){
+            if(!occurances.ContainsKey(nums[i])){
+                occurances.Add(nums[i], 1);
+            }
+            else{
+                occurances[nums[i]] += 1;
+            }
+        }
+        
+        foreach(var item in occurances){
+            if(item.Value > 1){
+                pairCount += ((item.Value * (item.Value-1)) / 2);
+            }
+        }
+        return pairCount;
+    }
+}
