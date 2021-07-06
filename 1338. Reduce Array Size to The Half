@@ -1,0 +1,35 @@
+public class Solution {
+    public int MinSetSize(int[] arr) {
+        Dictionary<int,int> occurances = new Dictionary<int, int>();
+        int uniqueNumber = 0;
+        for(int i=0; i< arr.Length; i++){
+            if(!occurances.ContainsKey(arr[i])){
+                occurances.Add(arr[i], 1);
+                uniqueNumber++;
+            }
+            else{
+                occurances[arr[i]] += 1;
+            }
+        }
+        
+        var list = new int[uniqueNumber];
+        int index = 0;
+        foreach(var item in occurances){
+            list[index] = item.Value;
+            index++;
+        }
+        Array.Sort(list);
+        Array.Reverse(list);
+        var arrayLength = arr.Length/2;
+        int sum = 0;
+        int count = 0;
+        for(int i=0; i< list.Length; i++){
+            sum += list[i];
+            if(sum >= arrayLength){
+                count = i + 1;
+                break;
+            }
+        }
+        return count;
+    }
+}
