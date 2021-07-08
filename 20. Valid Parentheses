@@ -1,0 +1,21 @@
+public class Solution {
+    public bool IsValid(string s) {
+        Stack st = new Stack();
+        var charArray = s.ToCharArray();
+        var dict = new Dictionary<char, char>{
+            {')', '('}, {'}', '{'}, {']', '['}
+        };
+        for(int i = 0; i < charArray.Length; i++){
+            if(charArray[i] == ')' || charArray[i] == '}' || charArray[i] == ']'){
+                if(st.Count == 0 || dict[charArray[i]] != (char)st.Pop()){
+                    return false;
+                }
+            }
+            else {
+                st.Push(charArray[i]);
+            }
+        }
+        
+        return (st.Count == 0) ? true : false;
+    }
+}
