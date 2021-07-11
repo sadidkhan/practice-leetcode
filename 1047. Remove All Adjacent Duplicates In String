@@ -1,0 +1,19 @@
+public class Solution {
+    public string RemoveDuplicates(string s) {
+        Stack st = new Stack();
+        char[] arr = s.ToCharArray();
+        for(int i=0; i< arr.Length; i++){
+            if(st.Count > 0 && arr[i] == (char)st.Peek()){
+                st.Pop();
+                continue;
+            }
+            st.Push(arr[i]);
+        }
+        
+        string result = "";
+        while(st.Count>0){
+            result = (char)st.Pop() + result;
+        }
+        return result;
+    }
+}
