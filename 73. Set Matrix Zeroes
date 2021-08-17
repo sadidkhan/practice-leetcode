@@ -1,0 +1,31 @@
+public class Solution {
+    public void SetZeroes(int[][] matrix) {
+        int m = matrix.Length;
+        int n = matrix[0].Length;
+        
+        var matrixLog = new int[m,n];
+        for(int i=0; i < matrix.Length; i++){
+            for(int j=0; j < matrix[i].Length; j++){
+                if(matrix[i][j] == 0 && matrixLog[i,j] != 1){
+                    int x = 0;
+                    while(x < n){
+                        if(matrix[i][x] !=0){
+                            matrix[i][x] = 0;
+                            matrixLog[i,x] = 1;
+                        }
+                        x++;
+                    }
+                    
+                    x = 0;
+                    while(x < m){
+                        if(matrix[x][j] !=0){
+                            matrix[x][j] = 0;
+                            matrixLog[x,j] = 1;
+                        }
+                        x++;
+                    }  
+                }
+            }
+        }
+    }   
+}
