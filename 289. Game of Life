@@ -59,3 +59,80 @@ public class Solution {
 
      }
 }
+
+public class SolutionWithNoExtraSpace {
+    public void GameOfLife(int[][] board) {
+        int rowLength = board.Length;
+        int colLength = board[0].Length;
+        
+        int[][] boardLog = new int[rowLength][];
+        for(int i=0; i< rowLength; i++){
+            boardLog[i] = new int[colLength];
+            for(int j=0; j< colLength; j++){
+                boardLog[i][j] = board[i][j];
+            }
+        }
+        
+        for(int i=0; i< rowLength; i++){
+            for(int j=0; j< colLength; j++){
+                int count = countNeighbours(board, i, j);
+                if(board[i][j] == 1){
+                    if(count < 2 || count > 3){
+                        board[i][j] = 3; //0;
+                    }
+                    else if(count == 2 || count == 3){
+                        continue;
+                    }
+                    else if(count > 3){
+                        board[i][j] = 3; //0;
+                    }
+                }
+                else {
+                    if(count == 3){
+                        board[i][j] = 2; //1;
+                    }
+                }
+            }
+        }
+        
+        for(int i=0; i< rowLength; i++){
+            for(int j=0; j< colLength; j++){
+                if(board[i][j] == 2){
+                    board[i][j] = 1;
+                }
+                if(board[i][j] == 3){
+                    board[i][j] = 0;
+                }
+            }
+        }
+        
+    }
+    
+     public int countNeighbours(int[][] boardLog, int row, int col){
+         Console.WriteLine("adjacent of ({0},{1})", row, col);
+         int count = 0;
+         int startRow = row > 0 ? (row - 1) : 0;
+         int endRow = row < (boardLog.Length -1) ? (row + 1) : row;
+         int startCol = col > 0 ? (col - 1) : 0;
+         int endCol = (col < (boardLog[0].Length - 1)) ? (col + 1) : (boardLog[0].Length - 1);
+         
+         for(int i=startRow; i <= endRow; i++){
+             for(int j=startCol; j <= endCol; j++){
+                 if(i == row &&  j == col){
+                     continue;
+                 }
+                 else{
+                     Console.WriteLine("({0},{1})", i, j);
+                     if(boardLog[i][j] == 1 || boardLog[i][j] == 3){
+                         count = count + 1;
+                     }
+                      else {
+                         count = count + 0;
+                     }
+                 }
+             }
+         }
+         Console.WriteLine("neighbour count of adjacent of ({0},{1}) is {2}", row, col, count);
+         return count;
+     }
+}
