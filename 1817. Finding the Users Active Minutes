@@ -1,0 +1,27 @@
+public class Solution {
+    public int[] FindingUsersActiveMinutes(int[][] logs, int k) {
+        int[] answer = new int[k];
+        Dictionary<int, HashSet<int>> uamPerUser = new Dictionary<int, HashSet<int>>();
+        
+        int rows = logs.Length;
+        
+        for(int i=0; i< rows; i++){
+            var userId = logs[i][0];
+            var time = logs[i][1];
+            if(!uamPerUser.ContainsKey(userId)){
+                uamPerUser.Add(userId, new HashSet<int>{time});
+            }
+            else{
+                uamPerUser[userId].Add(time);
+            }
+        }
+        
+        foreach(var item in uamPerUser){
+            var list = item.Value;
+            var count = list.Count;
+            answer[count - 1] = answer[count - 1] + 1;
+        }
+        
+        return answer;
+    }
+}
