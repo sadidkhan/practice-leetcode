@@ -1,0 +1,31 @@
+public class Solution {
+    public int MaxNumberOfBalloons(string text) {
+        Dictionary<char, int> occurance = new Dictionary<char,int>();
+        
+        foreach(var c in "balon"){
+            occurance.Add(c, 0);
+        }
+        
+        foreach(var c in text){
+            if(occurance.ContainsKey(c)){
+                occurance[c] += 1;
+            }
+        }
+        
+        int instances = Int32.MaxValue;
+        
+        foreach(var item in occurance){
+            int value = 0;
+            if(item.Key == 'l' || item.Key == 'o'){
+                value = item.Value / 2;
+            }
+            else{
+                value = item.Value;
+            }
+            
+            instances = Math.Min(instances, value);
+        }
+        
+        return instances;
+    }
+}
